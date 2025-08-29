@@ -8,19 +8,4 @@ export class BudgetItem implements IBudgetItem {
     public category: string,
   ) {}
 
-  public getName(): string {
-    return this.name;
-  }
-
-  public getPrice(): number {
-    return this.price;
-  }
-
-  public getQuantity(): number {
-    return this.quantity;
-  }
-
-  public getCategory(): string {
-    return this.category;
-  }
 }
