@@ -7,5 +7,4 @@ export class BudgetItem implements IBudgetItem {
     public quantity: number = 1,
     public category: string,
   ) {}
-
 }
