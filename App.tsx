@@ -1,24 +1,37 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, useColorScheme, View } from 'react-native';
+import {StatusBar, useColorScheme, View} from 'react-native';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { AppStyles } from './styles/AppStyles';
+import {AppStyles} from './styles/AppStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {createInitialBulkEntries} from './services/BulkCreationService';
+import {useEffect} from 'react';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  useEffect(() => {
+    initializeApp();
+  }, []); //Empty dependency array?
+
+  const initializeApp = async () => {
+    try {
+      const existingBudgetItems = await AsyncStorage.getItem('budgetItems');
+
+      if (existingBudgetItems) {
+        // If exists then parse
+        const items = JSON.parse(existingBudgetItems);
+      } else {
+        const defaultItems = createInitialBulkEntries();
+        await AsyncStorage.setItem('budgetItems', JSON.stringify(defaultItems));
+      }
+    } catch (error) {
+      console.error('Error initializing app:', error);
+    }
+  };
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar />
       <AppContent />
     </SafeAreaProvider>
   );
@@ -27,14 +40,7 @@ function App() {
 function AppContent() {
   const safeAreaInsets = useSafeAreaInsets();
 
-  return (
-    <View style={AppStyles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
+  return <View style={AppStyles.container}></View>;
 }
 
 export default App;

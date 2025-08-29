@@ -1,6 +1,6 @@
 import {BudgetItem} from '../models';
 
-function createInitialBulkEntries(): void {
+export function createInitialBulkEntries(): BudgetItem[] {
   let entries: BudgetItem[] = [];
 
   //Initial entries created in bulk
@@ -25,4 +25,6 @@ function createInitialBulkEntries(): void {
   entries.push(new BudgetItem('Psiquiatra', 125, 1, 'Servicios médicos'));
   entries.push(new BudgetItem('Recuerdo LATAM', 12, 1, 'Recuerdos'));
   entries.push(new BudgetItem('Odontóloga', 35, 1, 'Servicios médicos'));
+
+  return entries;
 }
