@@ -4,4 +4,3 @@ export interface IBudgetItem {
   quantity: number;
   category: string;
 }
-
